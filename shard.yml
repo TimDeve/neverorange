@@ -7,3 +7,6 @@ authors:
 dependencies:
   kemal:
     github: kemalcr/kemal
+  crest:
+    github: mamantoha/crest
+

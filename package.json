@@ -11,7 +11,7 @@
     "build:front": "cross-env NODE_ENV=production webpack",
     "build:back": "crystal build src/back/neverorange.cr",
     "dev:front": "webpack-serve --content public --hot",
-    "dev:back": "crystal run src/back/neverorange.cr"
+    "dev:back": "nodemon --exec \"crystal run src/back/neverorange.cr\" src/back/neverorange.cr"
   },
   "devDependencies": {
     "cross-env": "^5.1.5",

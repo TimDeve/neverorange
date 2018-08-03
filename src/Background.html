@@ -1,4 +1,4 @@
-<div class="wrapper" style="background-image: {background}"></div>
+<div class="wrapper" style={`background-image: ${background}; ${extraStyle}`}></div>
 
 <style>
   .wrapper {
@@ -30,10 +30,10 @@
       }
     },
     computed: {
-      background: ({ photoIndex }) => `url(https://source.unsplash.com/${photoIds[photoIndex]}/3840x2160)`,
+      background: ({ photoIndex }) => `url(https://source.unsplash.com/${photoIds[photoIndex]}/1280x1024)`,
     },
     oncreate() {
-      setInterval(() => {
+      this.interval = setInterval(() => {
         const { photoIndex } = this.get()
         if (photoIndex < photoIds.length - 1) {
           this.set({ photoIndex: photoIndex + 1 })
@@ -41,6 +41,9 @@
           this.set({ photoIndex: 0 })
         }
       }, 1800000)
-    }
+    },
+    ondestroy() {
+      clearInterval(this.interval);
+    },
   }
 </script>

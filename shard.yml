@@ -3,3 +3,7 @@ version: 0.1.0
 
 authors:
   - Timothée Dévé <hi@timdeve.com>
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal

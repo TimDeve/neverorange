@@ -1,6 +1,11 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "neverorange",
+  "version": "0.1.0",
+  "author": {
+    "name": "Timothée Dévé",
+    "email": "hi@timdeve.com",
+    "url": "https://www.timdeve.com/"
+  },
   "devDependencies": {
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",

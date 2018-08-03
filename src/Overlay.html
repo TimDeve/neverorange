@@ -1,0 +1,27 @@
+<button on:click="toggleVisibility()">X</button>
+<div class="overlay" style="{visible && "display: block"}" />
+
+<style>
+  .overlay {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    display: none;
+  }
+</style>
+
+<script>
+  export default {
+    data: () => ({
+      visible: false
+    }),
+    methods: {
+      toggleVisibility() {
+        this.set({
+          visible: !this.get().visible
+        })
+      }
+    },
+  }
+</script>

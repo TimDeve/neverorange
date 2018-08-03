@@ -1,0 +1,46 @@
+<div class="wrapper" style="background-image: {background}"></div>
+
+<style>
+  .wrapper {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+  }
+</style>
+
+<script>
+  const photoIds = [
+    "VuOs6VW8gUI",
+    "4wzr8XMsmAM",
+    "IRk4gKJQLBI",
+    "HBgr36tdKwM",
+    "7EhxpaOwg2Q",
+    "Bk_Akw9590U",
+    "F6Da4r2x5to",
+    "NDuPLKYRXQU",
+    "ZUvF7qEIcVI",
+    "LIHiWVXaUyM",
+    "_1iEJewMxKk"
+  ]
+
+  export default {
+    data() {
+      return {
+        photoIndex: Math.floor(Math.random() * Math.floor(photoIds.length))
+      }
+    },
+    computed: {
+      background: ({ photoIndex }) => `url(https://source.unsplash.com/${photoIds[photoIndex]}/3840x2160)`,
+    },
+    oncreate() {
+      setInterval(() => {
+        const { photoIndex } = this.get()
+        if (photoIndex < photoIds.length - 1) {
+          this.set({ photoIndex: photoIndex + 1 })
+        } else {
+          this.set({ photoIndex: 0 })
+        }
+      }, 1800000)
+    }
+  }
+</script>

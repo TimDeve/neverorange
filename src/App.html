@@ -1,52 +1,16 @@
-<div class="wrapper" style="background-image: {background}"></div>
+<Background />
 
 <style>
-	:global(body) {
-		padding: 0;
-	}
-
-	.wrapper {
-		height: 100vh;
-		width: 100vw;
-	}
+  :global(body) {
+    padding: 0;
+    margin: 0;
+  }
 </style>
 
 <script>
-	export default {
-		data() {
-			return {
-				background: "url()"
-			}
-		},
-		oncreate() {
-			const photoIds = [
-				"VuOs6VW8gUI",
-				"4wzr8XMsmAM",
-				"IRk4gKJQLBI",
-				"HBgr36tdKwM",
-				"7EhxpaOwg2Q",
-				"Bk_Akw9590U",
-				"F6Da4r2x5to",
-				"NDuPLKYRXQU",
-				"ZUvF7qEIcVI",
-				"LIHiWVXaUyM",
-				"_1iEJewMxKk"
-			]
-			var currentPhotoId = Math.floor(Math.random() * Math.floor(photoIds.length))
-
-			const setBackground = () => {
-				if (currentPhotoId >= photoIds.length) {
-					currentPhotoId = 0
-				}
-				this.set({
-					background: `url(https://source.unsplash.com/${photoIds[currentPhotoId]}/1280x1024)`
-				})
-				currentPhotoId++
-			}
-
-			setInterval(setBackground, 1800000)
-
-			setBackground()
-		}
-	}
+  export default {
+    components: {
+     Background: './Background.html'
+    },
+  }
 </script>

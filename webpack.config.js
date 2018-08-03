@@ -6,7 +6,7 @@ const prod = mode === 'production';
 
 module.exports = {
 	entry: {
-		bundle: ['./src/main.js']
+		bundle: ['./src/front/main.js']
 	},
 	resolve: {
 		extensions: ['.js', '.html']

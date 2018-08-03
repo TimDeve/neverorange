@@ -6,6 +6,13 @@
     "email": "hi@timdeve.com",
     "url": "https://www.timdeve.com/"
   },
+  "scripts": {
+    "build": "npm run build:front && npm run build:back",
+    "build:front": "cross-env NODE_ENV=production webpack",
+    "build:back": "crystal build src/back/neverorange.cr",
+    "dev:front": "webpack-serve --content public --hot",
+    "dev:back": "crystal run src/back/neverorange.cr"
+  },
   "devDependencies": {
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
@@ -17,9 +24,5 @@
     "webpack": "^4.8.3",
     "webpack-cli": "^2.0.14",
     "webpack-serve": "^1.0.2"
-  },
-  "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-serve --content public --hot"
   }
 }

@@ -1,6 +1,6 @@
 require "kemal"
 
-get "/" do
+get "/api" do
   "Hello World!"
 end
 

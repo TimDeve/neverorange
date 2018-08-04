@@ -10,7 +10,7 @@ ADD public/index.html public
 RUN npm install
 RUN npm run build:front
 
-FROM durosoft/crystal-alpine:0.25.0 as crystal-builder
+FROM timdeve/crystal-alpine as crystal-builder
 LABEL builder=true
 RUN mkdir -p /root/app/src/back
 WORKDIR /root/app
@@ -20,7 +20,7 @@ ADD src/back/neverorange.cr src/back
 RUN shards install
 RUN crystal build src/back/neverorange.cr --release --static --no-debug
 
-FROM alpine:3.6
+FROM alpine:3.8
 WORKDIR /root
 RUN mkdir public
 COPY --from=node-builder /root/app/public public

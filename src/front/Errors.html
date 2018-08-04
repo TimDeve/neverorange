@@ -1,18 +1,73 @@
+{#each errors as error}
+  <div
+    style={`height: ${errorsHeight}vh; line-height: ${errorsHeight}vh`}
+    class="failed"
+  >
+    {error}
+  </div>
+{/each}
+
 <Background extraStyle={hasErrors && "display: none"}/>
 
 <style>
+  .failed {
+    height: 100vh;
+    width: 100vw;
+    background: tomato;
+    color: white;
+    font-family: sans-serif;
+    font-size: 8vh;
+    text-align: center;
+    line-height: 100vh;
+    overflow: hidden;
+  }
 </style>
 
 <script>
+  const getProjectsFromStorage = () => {
+    try {
+      const projects = localStorage.getItem("projects")
+      return JSON.parse(projects) || []
+    } catch(e) {
+      return []
+    }
+  }
+
+  const flattenProjects = projects => projects.reduce((acc, p) => [...acc, ...p], [])
+
+  const filterFailingProjects = projects => {
+    return projects
+      .filter(p => p.activity === "Sleeping" && p.lastBuildStatus === "Failure")
+      .map(p => p.name)
+  }
+
   export default {
     data: () => ({
       errors: []
     }),
     computed: {
-      hasErrors: ({errors}) => errors.length < 0
+      hasErrors: ({errors}) => errors.length > 0,
+      errorsHeight: ({errors}) => errors.length && 100 / errors.length
     },
     components: {
      Background: './Background.html'
+    },
+    oncreate() {
+      this.interval = setInterval(async () => {
+        const projectsToFetch = getProjectsFromStorage()
+          .map(project => fetch(`/api/status?target=${project}`))
+        const responses = await Promise.all(projectsToFetch)
+        const bodies = await Promise.all(responses
+          .filter(res => res.ok)
+          .map(res => res.json()))
+
+        const failingProjects = filterFailingProjects(flattenProjects(bodies))
+
+        this.set({errors: failingProjects})
+      }, 5000)
+    },
+    ondestroy() {
+      clearInterval(this.interval);
     },
   }
 </script>

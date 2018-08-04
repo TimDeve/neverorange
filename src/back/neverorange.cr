@@ -31,8 +31,7 @@ get "/api/status" do |env|
     ProjectStatus.new(
       name: child["name"],
       activity: child["activity"],
-      lastBuildStatus: child["lastBuildStatus"]
-    )
+      lastBuildStatus: child["lastBuildStatus"])
   end
 
   env.response.content_type = "application/json"

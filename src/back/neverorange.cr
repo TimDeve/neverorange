@@ -3,13 +3,6 @@ require "crest"
 require "xml"
 require "json"
 
-# struct ProjectStatus
-#   property name, activity, lastBuildStatus
-
-#   def initialize(@name : String, @activity : String, @lastBuildStatus : String)
-#   end
-# end
-
 struct ProjectStatus
   JSON.mapping({
     name: String,
@@ -26,7 +19,7 @@ get "/api/status" do |env|
   if !target
     halt env, status_code: 400, response: "'target' parameter is required"
   end
-  
+
   response = Crest.get(target, handle_errors: false)
   if !(response.status_code == 200)
     halt env, status_code: response.status_code
@@ -34,10 +27,12 @@ get "/api/status" do |env|
 
   doc = XML.parse(response.body)
 
-  statuses = { projects: [] of ProjectStatus}
-  doc.children[0].children.each do |child|
-    project_status = ProjectStatus.new(child["name"], child["activity"], child["lastBuildStatus"])
-    statuses["projects"] << project_status
+  statuses = doc.children[0].children.map do |child|
+    ProjectStatus.new(
+      name: child["name"],
+      activity: child["activity"],
+      lastBuildStatus: child["lastBuildStatus"]
+    )
   end
 
   env.response.content_type = "application/json"

@@ -11,7 +11,7 @@
     "build:front": "cross-env NODE_ENV=production webpack",
     "build:back": "crystal build src/back/neverorange.cr",
     "dev:front": "webpack-serve --content public --hot",
-    "dev:back": "nodemon --exec \"crystal run src/back/neverorange.cr\" src/back/neverorange.cr"
+    "dev:back": "nodemon --watch src/back --exec \"crystal run\" src/back/neverorange.cr"
   },
   "devDependencies": {
     "cross-env": "^5.1.5",
@@ -19,6 +19,7 @@
     "http-proxy-middleware": "^0.18.0",
     "koa-connect": "^2.0.1",
     "mini-css-extract-plugin": "^0.4.0",
+    "nodemon": "^1.18.3",
     "serve": "^6.5.5",
     "style-loader": "^0.21.0",
     "svelte": "^2.0.0",

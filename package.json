@@ -7,9 +7,14 @@
     "url": "https://www.timdeve.com/"
   },
   "scripts": {
+    "deps": "npm run deps:js && npm run deps:cr",
+    "deps:js": "npm install",
+    "deps:cr": "shards install",
     "build": "npm run build:front && npm run build:back",
     "build:front": "cross-env NODE_ENV=production webpack",
-    "build:back": "crystal build src/back/neverorange.cr",
+    "build:back": "npm run build:back:basic",
+    "build:back:basic": "crystal build src/back/neverorange.cr",
+    "build:back:static": "crystal build src/back/neverorange.cr --release --static --no-debug",
     "dev:front": "webpack-serve --content public --hot",
     "dev:back": "nodemon --watch src/back --exec \"crystal run\" src/back/neverorange.cr"
   },

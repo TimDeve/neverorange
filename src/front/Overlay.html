@@ -1,13 +1,35 @@
-<button on:click="toggleVisibility()">X</button>
-<div class="overlay" style="{visible && "display: block"}" />
+<button class="overlayButton" on:click="toggleVisibility()">X</button>
+
+{#if visible}
+  <div class="overlay">
+    <OverlayForm />
+  </div>
+{/if}
 
 <style>
-  .overlay {
+  .overlayButton {
+    font-size: 24px;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    z-index: 2;
     position: absolute;
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    display: none;
+    right: 0;
+    top: 0;
+  }
+
+  .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #faf7f4;
+    top: 0;
+    left: 0;
   }
 </style>
 
@@ -16,6 +38,9 @@
     data: () => ({
       visible: false
     }),
+    components: {
+      OverlayForm: "./OverlayForm.html"
+    },
     methods: {
       toggleVisibility() {
         this.set({

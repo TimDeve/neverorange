@@ -1,0 +1,73 @@
+<form ref:form on:submit="handleSubmit(event)">
+  {#each inputs as input, index}
+    <div class="inputGroup">
+      <input class="sourceInput" bind:value=input type="text" />
+      <button on:click="removeSource(event, index)">X</button>
+    </div>
+  {/each}
+  <button on:click="addSource(event)">+</button>
+  <button>{saved ? "Saved" : "Save"}</button>
+</form>
+
+<style>
+  button {
+    padding: 0 16px;
+    line-height: 36px;
+    font-size: 16px;
+    border: solid black 1px;
+    border-radius: 4px;
+  }
+
+  .inputGroup {
+    margin: 16px 0;
+  }
+
+  .sourceInput {
+    padding: 0 4px;
+    line-height: 36px;
+    font-size: 16px;
+    border: solid black 1px;
+    border-radius: 4px;
+    width: 50vw;
+  }
+</style>
+
+<script>
+  import { getProjectsFromStorage, setProjectsInStorage } from './storage'
+
+  export default {
+    data() {
+      return {
+        inputs: getProjectsFromStorage(),
+        saved: false
+      }
+    },
+    methods: {
+      addSource(event) {
+        event.preventDefault()
+
+        this.set({saved: false})
+
+        const {inputs} = this.get()
+        this.set({inputs: [...inputs, ""]})
+      },
+      removeSource(event, targetIndex) {
+        event.preventDefault()
+
+        this.set({saved: false})
+
+        const {inputs} = this.get()
+        const filteredInputs = inputs.filter((input, index) => index !== targetIndex)
+        this.set({inputs: filteredInputs})
+      },
+      handleSubmit(event) {
+        event.preventDefault()
+
+        this.set({saved: true})
+
+        const inputsWithoutEmpty = this.get().inputs.filter(i => i)
+        setProjectsInStorage(inputsWithoutEmpty)
+      }
+    },
+  }
+</script>

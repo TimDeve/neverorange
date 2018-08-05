@@ -24,14 +24,7 @@
 </style>
 
 <script>
-  const getProjectsFromStorage = () => {
-    try {
-      const projects = localStorage.getItem("projects")
-      return JSON.parse(projects) || []
-    } catch(e) {
-      return []
-    }
-  }
+  import { getProjectsFromStorage } from './storage'
 
   const flattenProjects = projects => projects.reduce((acc, p) => [...acc, ...p], [])
 

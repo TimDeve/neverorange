@@ -1,18 +1,16 @@
-<button class="overlayButton" on:click="toggleVisibility()">X</button>
+<div class="overlayButton" on:click="toggleVisibility()">
+  <Hamburger {visible} on:click="toggleVisibility()" />
+</div>
 
 {#if visible}
-  <div class="overlay">
+  <div transition:fade="{duration: 100}" class="overlay">
     <OverlayForm />
   </div>
 {/if}
 
 <style>
   .overlayButton {
-    font-size: 24px;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    background: none;
+    font-size: 10px;
     z-index: 2;
     position: absolute;
     right: 0;
@@ -34,13 +32,17 @@
 </style>
 
 <script>
+  import fade from 'svelte-transitions-fade'
+
   export default {
     data: () => ({
       visible: false
     }),
     components: {
+      Hamburger: "./Hamburger.html",
       OverlayForm: "./OverlayForm.html"
     },
+    transitions: { fade },
     methods: {
       toggleVisibility() {
         this.set({

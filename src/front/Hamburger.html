@@ -1,0 +1,41 @@
+<div class={"hamburger" + " " + (visible ? "active" : "")} style={style}>
+  <div class="hamburgerLine1"/>
+  <div class="hamburgerLine2"/>
+  <div class="hamburgerLine3"/>
+</div>
+
+<style>
+  .hamburger {
+    margin: 2em;
+    cursor: pointer;
+  }
+
+  .hamburger div {
+    margin: 0.6em 0 0.6em 0;
+    height: 0.3em;
+    width: 3em;
+    background-color: white;
+    transition-duration: 0.3s;
+  }
+
+  .hamburger.active div {
+    background-color: black;
+  }
+
+  .hamburger.active div:nth-child(1) {
+    transition-duration: 0.5s;
+    transform: translateY(0.9em) rotate(45deg);
+  }
+
+  .hamburger.active div:nth-child(2) {
+    transition-duration: 0.3s;
+    width: 0;
+    opacity: 0;
+  }
+
+  .hamburger.active div:nth-child(3) {
+    transition-duration: 0.5s;
+    transform: translateY(-0.9em) rotate(-45deg);
+  }
+
+</style>

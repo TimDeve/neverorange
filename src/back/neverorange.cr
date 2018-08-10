@@ -38,5 +38,13 @@ get "/api/status" do |env|
   statuses.to_json
 end
 
+get "/" do |env|
+  send_file env, "public/index.html"
+end
+
+get "/*" do |env|
+  env.redirect "/"
+end
+
 Kemal.config.port = 4000
 Kemal.run
